@@ -1,7 +1,25 @@
 import { useQuery, gql } from "@apollo/client";
+import ErrorPage from "../ErrorPage/ErrorPage";
+
+const BLOGS = gql`
+  query GetBlogs {
+    blogs {
+      id
+      title
+      blogImage
+      description
+    }
+  }
+`;
 
 const Home = () => {
-  // const {data, loading, error} =
+  const { loading, error, data } = useQuery(BLOGS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <ErrorPage />;
+
+  console.log(data);
+
   return (
     <>
       <div className="banner md:flex lg:flex flex-none mt-32 text-white">
